@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>API App</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    button {
+      margin: 10px;
+      padding: 15px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+
+    #button1 {
+      background-color: #3498db;
+    }
+
+    #button2 {
+      background-color: #2ecc71;
+    }
+
+    .response-area {
+      margin-top: 20px;
+      background-color: white;
+      padding: 20px;
+    }
+    .form {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 150px;
+      grid-column-gap: 10px;
+      
+    }
+  </style>
+</head>
+
+<body>
+  <button type="submit" id="button1" onclick="window.location.href='/rnd'">Random Joke</button>
+  <form action="/go" id="form" class="form" method="POST">
+    <select name="category">
+    <option value="Any" data-display="Select">Random Category</option>
+    <option value="Programming">Programming</option>
+    <option value="Miscellaneous">Miscellaneous</option>
+    <option value="Dark">Dark</option>
+    <option value="Pun">Pun</option>
+    <option value="Spooky">Spooky</option>
+    <option value="Christmas">Christmas</option>
+    </select>
+    <select name="flags">
+    <option value="">No flag</option>
+    <option value="?blacklistFlags=nsfw">Nsfw</option>
+    <option value="?blacklistFlags=religious">Religious</option>
+    <option value="?blacklistFlags=political">Political</option>
+    <option value="?blacklistFlags=racist">Racist</option>
+    <option value="?blacklistFlags=sexist">Sexist</option>
+    <option value="?blacklistFlags=explicit">Explicit</option>
+    </select>
+    <button type="submit" id="button2">Go</button>
+  </form>
+  <div class="response-area">
+    <p>
+      <% if (locals.content.type === "single") {%>
+        <%=content.joke%>
+
+      <% }else if (content.type === "twopart"){ %>
+        <%= content.setup %>
+        <%= content.delivery %>
+      <% }else { %>
+        <%= content %>
+      <% } %>
+    </p>
+  </div>
+</body>
+
+</html>
